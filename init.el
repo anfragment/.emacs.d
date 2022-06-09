@@ -11,7 +11,7 @@
  '(custom-safe-themes
    '("fc48cc3bb3c90f7761adf65858921ba3aedba1b223755b5924398c666e78af8b" default))
  '(package-selected-packages
-   '(nyan-mode darcula-theme ample-theme multiple-cursors pdf-view-restore pdf-tools ivy rainbow-delimiters neotree projectile resize-window ace-window vterm eyebrowse move-text helm typescript-mode))
+   '(use-package lsp-ui lsp-mode nyan-mode darcula-theme ample-theme multiple-cursors pdf-view-restore ivy rainbow-delimiters neotree projectile resize-window ace-window vterm eyebrowse move-text helm typescript-mode))
  '(typescript-indent-level 2)
  '(warning-suppress-types '((comp))))
 (custom-set-faces
@@ -21,12 +21,14 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; (require 'lsp)
+
 (set-frame-font "SF Mono 10")
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq create-lockfiles nil)
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-screen t)
 
+;; move between windows
 (windmove-default-keybindings)
 (global-set-key (kbd "M-o") 'other-window)
 
@@ -84,6 +86,10 @@
 ;; temporary files
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 (setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
 
 ;; display help in current buffer
 (add-to-list 'display-buffer-alist
@@ -98,6 +104,8 @@
 (global-set-key [f8] 'neotree-projectile-action)
 (global-set-key (kbd "M-n") 'scroll-up-line)
 (global-set-key (kbd "M-p") 'scroll-down-line)
+(global-set-key (kbd "M-f") 'forward-to-word)
+(global-set-key (kbd "M-b") 'backward-to-word)
 (move-text-default-bindings)
 (setq-default frame-title-format '("%f"))
 
@@ -119,14 +127,13 @@
 
 (global-set-key [f6] 'ide-layout)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("fc48cc3bb3c90f7761adf65858921ba3aedba1b223755b5924398c666e78af8b" default))
- '(package-selected-packages
-   '(nyan-mode darcula-theme ample-theme multiple-cursors pdf-view-restore ivy rainbow-delimiters neotree projectile resize-window ace-window vterm eyebrowse move-text helm typescript-mode))
- '(typescript-indent-level 2)
- '(warning-suppress-types '((comp))))
+;; disable Ctrl+Z suspend in graphical environment
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z C-z") 'my-suspend-frame)
+(defun my-suspend-frame ()
+  (interactive)
+  (if (display-graphic-p)
+      (message "suspend-frame disabled for graphical environments")
+    (suspend-frame)))
+
+
