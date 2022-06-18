@@ -8,6 +8,7 @@
 (winner-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell t)
+(set-frame-font "SF Mono 10" nil t)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up-line 3)))
@@ -101,7 +102,21 @@
   :bind
   (:map global-map
 	("M-0" . treemacs-select-window)
-	("C-x t t" . treemacs)))
+	("C-x t t" . treemacs))
+  :config
+  (dolist (face '(treemacs-root-face
+                  treemacs-git-unmodified-face
+                  treemacs-git-modified-face
+                  treemacs-git-renamed-face
+                  treemacs-git-ignored-face
+                  treemacs-git-untracked-face
+                  treemacs-git-added-face
+                  treemacs-git-conflict-face
+                  treemacs-directory-face
+                  treemacs-directory-collapsed-face
+                  treemacs-file-face
+                  treemacs-tags-face))
+      (set-face-attribute face nil :family "SF Mono")))
 
 (use-package lsp-treemacs
   :after lsp)
