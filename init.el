@@ -95,6 +95,9 @@
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-log-io nil))
 
+(use-package flycheck
+  :hook (lsp-mode . flycheck-mode))
+
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode))
 
@@ -171,8 +174,7 @@
 
 (use-package ace-window
   :ensure t
-  :bind (("M-o" . ace-window))
-  :config (setq aw-dispatch-always 1))
+  :bind (("M-o" . ace-window)))
 
 (use-package resize-window
   :bind
