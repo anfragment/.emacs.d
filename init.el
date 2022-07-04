@@ -9,6 +9,10 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell t)
 (set-frame-font "SF Mono 10" nil t)
+(setq gc-cons-threshold (* 100 1000 1000))
+(add-hook 'focus-out-hook 'garbage-collect)
+(run-with-idle-timer 5 t 'garbage-collect)
+(setq tab-width 4)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up-line 3)))
@@ -91,7 +95,6 @@
   :hook
   ((c-mode . lsp-deferred))
   :config
-  (setq gc-cons-threshold 100000000)
   (setq read-process-output-max (* 1024 1024))
   (setq lsp-log-io nil))
 
@@ -125,6 +128,14 @@
   :after lsp)
 
 (use-package vterm)
+
+(use-package multi-vterm
+  :after vterm
+  :bind (("C-` C-`" . multi-vterm)
+	 ("C-` C-n"  . multi-vterm-next)
+	 ("C-` C-p"  . multi-vterm-prev))
+  :custom
+  (vterm-timer-delay 0.01))
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
@@ -190,4 +201,10 @@
 
 (use-package move-text
   :init (move-text-default-bindings))
+
+(use-package nasm-mode
+  :config
+  (add-hook 'asm-mode-hook 'nasm-mode)
+  (setq nasm-basic-offset 4)
+  (electric-indent-local-mode -1))
 
