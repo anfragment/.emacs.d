@@ -14,6 +14,11 @@
 (run-with-idle-timer 5 t 'garbage-collect)
 (setq tab-width 4)
 
+(desktop-save-mode 1)
+(setq desktop-path '("~/.emacs.d/desktop-mode"))
+(setq desktop-dirname "~/.emacs.d/desktop-mode")
+
+
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up-line 3)))
 (global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down-line 3)))
