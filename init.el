@@ -6,18 +6,24 @@
 (electric-pair-mode 1)
 (set-fringe-mode 0)
 (winner-mode 1)
+(setq use-dialog-box nil) ;; don't pop up UI dialogs when prompting
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell t)
 (set-frame-font "SF Mono 10" nil t)
 (setq gc-cons-threshold (* 100 1000 1000))
-(add-hook 'focus-out-hook 'garbage-collect)
-(run-with-idle-timer 5 t 'garbage-collect)
 (setq tab-width 4)
 
 (desktop-save-mode 1)
 (setq desktop-path '("~/.emacs.d/desktop-mode"))
 (setq desktop-dirname "~/.emacs.d/desktop-mode")
 
+(recentf-mode 1)
+(global-set-key (kbd "<f5>") 'recentf-open-files)
+
+(save-place-mode 1)
+
+(global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
+(setq global-auto-revert-non-file-buffers t) ;; revert dired and other non-file buffers
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up-line 3)))
