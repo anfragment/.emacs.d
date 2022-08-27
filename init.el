@@ -9,7 +9,15 @@
 (setq use-dialog-box nil) ;; don't pop up UI dialogs when prompting
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell t)
-(set-frame-font "SF Mono 10" nil t)
+(cond
+ ((find-font (font-spec :name "Cascadia Code"))
+  (set-frame-font "Cascadia Code-12"))
+ ((find-font (font-spec :name "Menlo"))
+  (set-frame-font "Menlo-12"))
+ ((find-font (font-spec :name "DejaVu Sans Mono"))
+  (set-frame-font "DejaVu Sans Mono-14"))
+ ((find-font (font-spec :name "Inconsolata"))
+  (set-frame-font "Inconsolata-12")))
 (setq gc-cons-threshold (* 100 1000 1000))
 (setq tab-width 4)
 
