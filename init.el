@@ -41,8 +41,7 @@
 (global-display-line-numbers-mode t)
 (dolist (mode '(eshell-mode-hook
 		term-mode-hook
-		treemacs-mode-hook
-		vterm-mode-hook))
+		treemacs-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; disable Ctrl+Z in a graphical environment
@@ -145,16 +144,6 @@
 
 (use-package lsp-treemacs
   :after lsp)
-
-(use-package vterm)
-
-(use-package multi-vterm
-  :after vterm
-  :bind (("C-` C-`" . multi-vterm)
-	 ("C-` C-n"  . multi-vterm-next)
-	 ("C-` C-p"  . multi-vterm-prev))
-  :custom
-  (vterm-timer-delay 0.01))
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
