@@ -1,16 +1,10 @@
 ;; Use 'y or n' instead of full 'yes or no' for confirmation messages
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Save and restore sessions
-(desktop-save-mode 1)
-
 ;; Display line, column numbers, and size of the file in the modeline
 (line-number-mode 1)
 (column-number-mode 1)
 (size-indication-mode 1)
-
-;; Highlight current line
-(global-hl-line-mode 1)
 
 ;; Display line numbers in all modes
 (global-display-line-numbers-mode t)
@@ -103,3 +97,8 @@
 
 ;; Move to trash instead of delete
 (setq delete-by-moving-to-trash t)
+
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "M-n") (lambda () (interactive) (scroll-up-line 3)))
+(global-set-key (kbd "M-p") (lambda () (interactive) (scroll-down-line 3)))
+
